@@ -1,0 +1,33 @@
+### NPM ###
+
+#Cleanup npm cache
+npm cache clean --force
+
+npm audit --audit-level=high;
+npm install npm@latest -g --to upgrade;
+npm install --cache /tmp/empty-cache --delete temperatry cache;
+npm prune;
+npm audit;
+npm audit fix --force
+
+#Determining which global packages need updating
+npm outdated -g --depth=0
+
+#Updating a single global package
+npm update -g <package_name>
+
+#Updating all globally-installed packages
+npm update -g
+
+#Get the current global location
+npm config get prefix
+
+#List global packages
+npm list --global
+
+#Show just the packages with their version number
+npm list -g --depth=0;
+npm cache clean --force
+
+#purge all node_module folders from your workspace if you have multiple node projects on your system you want to clean up:
+find . -name "node_modules" -type d -exec rm -rf '\{\}' +\
