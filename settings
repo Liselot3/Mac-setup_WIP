@@ -1,0 +1,201 @@
+
+💻 System Settings/Preferences 💻
+
+________________________________________
+
+$Remote Apple Events
+#Status
+sudo systemsetup -getremoteappleevents
+
+#Enable
+sudo systemsetup -setremoteappleevents on
+
+#Disable (Default)
+sudo systemsetup -setremoteappleevents off
+
+$Root User
+#Enable
+dsenableroot
+
+#Disable (Default)
+dsenableroot -d
+
+$Safe Mode Boot
+#Status
+nvram boot-args
+
+#Enable
+sudo nvram boot-args="-x"
+
+#Disable (Default)
+sudo nvram boot-args=""
+
+#Prohibit generation of .DS_Store
+m dir dsfiles off
+
+#Stop Full Names from Copying with Email Addresses in Mac OS X Mail
+sudo defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false
+
+#Use Plain Text Mode as Default
+defaults write com.apple.TextEdit RichText -int 0
+
+#Save screenshots in PNG format (other options: BMP, GIF, JPG, PDF, TIFF)
+defaults write com.apple.screencapture type -string "png"
+
+#Avoid creating .DS_Store files on network or USB volumes
+defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true;
+defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
+
+#Disable key repeat
+defaults write -g ApplePressAndHoldEnabled -bool true
+
+#Enable “Do Not Track”
+defaults write com.apple.Safari SendDoNotTrackHTTPHeader -bool true
+
+#Update extensions automatically
+defaults write com.apple.Safari InstallExtensionUpdatesAutomatically -bool true
+
+#Save screenshots to the desktop
+defaults write com.apple.screencapture location -string "${HOME}/Desktop"
+
+#Stop apps from saving to iCloud by default
+defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
+
+#Disable machine sleep while charging
+sudo pmset -c sleep 0
+
+#Show Full Path in Finder Title
+defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
+
+#Show "Quit Finder" Menu Item
+defaults write com.apple.finder QuitMenuItem -bool true && killall Finder
+
+#Always Show the User Library Folder
+Sudo chflags nohidden ~/Library/
+
+____________________________________
+
+##### Mac App Store ######
+
+#Enable the WebKit Developer Tools in the Mac App Store
+defaults write com.apple.appstore WebKitDeveloperExtras -bool true
+
+#Enable Debug Menu in the Mac App Store
+defaults write com.apple.appstore ShowDebugMenu -bool true
+
+#Enable the automatic update check
+defaults write com.apple.SoftwareUpdate AutomaticCheckEnabled -bool true
+
+#Check for software updates daily, not just once per week
+defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
+
+#Download newly available updates in background
+defaults write com.apple.SoftwareUpdate AutomaticDownload -int 1
+
+#Install System data files & security updates
+defaults write com.apple.SoftwareUpdate CriticalUpdateInstall -int 1
+
+$Autohide
+#Enable
+defaults write com.apple.dock autohide -bool true && \
+killall Dock
+
+#Disable (Default)
+defaults write com.apple.dock autohide -bool false && \
+killall Dock
+
+#Turn on app auto-update
+defaults write com.apple.commerce AutoUpdate -bool true
+
+#Set the Default Finder View Style to Column
+defaults write com.apple.Finder FXPreferredViewStyle clmv
+
+____________________________________
+
+##### TERMINAL ##### 
+
+#Use `~/Documents/Torrents` to store incomplete downloads
+defaults write org.m0k.transmission UseIncompleteDownloadFolder -bool true;
+defaults write org.m0k.transmission IncompleteDownloadFolder -string "${HOME}/Documents/Torrents"
+
+#Trash original torrent files
+defaults write org.m0k.transmission DeleteOriginalTorrent -bool true
+
+#Don’t prompt for confirmation before downloading
+defaults write org.m0k.transmission DownloadAsk -bool false;
+defaults write org.m0k.transmission MagnetOpenAsk -bool false
+
+#Use `~/Downloads` to store completed downloads
+defaults write org.m0k.transmission DownloadLocationConstant -bool true
+
+____________________________________
+
+##### Finder Settings Scripts ##### 
+
+#Shows Status Bar
+/usr/bin/defaults write com.apple.finder ShowStatusBar -bool true
+
+#Shows Tab View
+/usr/bin/defaults write com.apple.finder ShowTabView -bool true
+
+#Shows Path Bar
+/usr/bin/defaults write com.apple.finder ShowPathbar -bool true
+
+#Keep folders on top when sorting by name
+defaults write com.apple.finder _FXSortFoldersFirst -bool YES
+
+#To unset, use the following command
+defaults write com.apple.finder _FXSortFoldersFirst -bool NO
+
+#New Finder windows now opens in /Users/<username>
+/usr/bin/defaults write com.apple.finder NewWindowTarget -string "PfHm"
+
+#System Preferences > General > Sidebar icon size: Medium
+defaults write -globalDomain NSTableViewDefaultSizeMode -int 2
+
+#Finder > Preferences > Show all filename extensions
+defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+
+#Disable the crash reporter
+defaults write com.apple.CrashReporter DialogType -string “none"
+
+#Keep folders on top when sorting by name
+defaults write com.apple.finder _FXSortFoldersFirst -bool true
+
+#Enable snap-to-grid for icons on the desktop and in other icon views
+/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist 
+/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist 
+
+#Increase the size of icons on the desktop and in other icon views
+/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:iconSize 80" ~/Library/Preferences/com.apple.finder.plist;
+/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:iconSize 80" ~/Library/Preferences/com.apple.finder.plist;
+/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:iconSize 80" ~/Library/Preferences/com.apple.finder.plist 
+
+#Expand the following File Info panes: “General”, “Open with”, and “Sharing & Permissions”
+defaults write com.apple.finder FXInfoPanesExpanded -dict;
+General -bool true;
+OpenWith -bool true;
+Privileges -bool true
+
+#Show all hidden Files and Folders
+$Defaults write com.apple.Finder AppleShowAllFiles true
+$killall Finder
+
+____________________________________
+
+##### Other #####
+
+#Disable app verification in macOS
+defaults write com.apple.LaunchServices LSQuarantine -bool NO
+
+sudo xattr -dr com.apple.quarantine /Applications/AppName.app
+
+#Skip verificaiton 
+xattr -d com.apple.quarantine /path/to/app/myMacApp.app
+
+#Set the shell to something sensible
+dsconfigad -shell "/bin/bash"
+
+____________________________________
+
