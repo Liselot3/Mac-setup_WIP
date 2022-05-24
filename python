@@ -1,0 +1,86 @@
+## PYTHON SETUP ## 
+
+______
+
+#Install python 
+arch -arm64 brew install python3
+
+#Install with get-pip.py
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+
+#Then run the following command in the folder where you have downloaded get-pip.py
+python3 get-pip.py
+
+#Upgrade
+pip install -U pip
+
+#Outdated
+pip list --outdated
+
+#Version
+pip --version
+pip3 --version
+
+sudo python3 -m ensurepip --default-pip
+
+pip install --upgrade pip;
+pip3 install --upgrade pip
+
+#cache (/Users/liselot/Library/Caches/pip)
+#available actions: dir, info, list, purge, remove
+pip3 cache purge;
+pip cache purge
+
+#update apps
+pip3 list --outdated
+pip install -U [app name]
+
+#upgrade
+pip3 list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1 | xargs -n1 pip3 install -U;
+pip list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1 | xargs -n1 pip install -U
+
+#Install & update pip
+arch -arm64 pip install --upgrade pip;
+arch -arm64 pip install Pygments;
+
+arch -arm64 brew install pyenv;
+arch -arm64 brew install openssl readline sqlite3 xz zlib;
+arch -arm64 brew install pyenv-virtualenv;
+pyenv virtualenvs
+
+#Install pipx
+pip3 install --user pipx;
+pipx install pipenv
+
+#Install argcomplete
+python3 -m pip install argcomplete
+
+#Check version
+python3 --version
+python3 -m pip install --user --upgrade setuptools wheel
+
+#Ensure pip, setuptools, and wheel are up to date
+python3 -m pip install --upgrade pip setuptools
+
+$ Linking $
+
+brew link python
+
+#To force the link and overwrite all conflicting files:
+brew link --overwrite python
+
+#To list all files that would be deleted:
+brew link --overwrite --dry-run python
+
+brew link --overwrite python
+
+#pip3 install -r requirements-dev.txt
+#pip3  install -t lib -r requirements.txt
+
+#python3 -m pip install --user --upgrade pip
+#python3 -m pip install --user virtualenv 
+#python3 -m venv env
+#python3 -m pip install requests
+#python3 -m pip install requests[security]
+#python3 -m pip install -r requirements.txt
+#python3 -m pip completion --zsh >> ~/.zprofile 
