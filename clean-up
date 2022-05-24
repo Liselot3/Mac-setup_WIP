@@ -1,8 +1,109 @@
+
 ### MAC CLEANUP ###
 
 $commands to help clean up macbook
 $Beware there may have some repeats
 _______________________________________________________
+
+#Find all empty files in home directory:
+find ~ -empty
+
+#Recursively Delete .DS_Store Files
+sudo find . -type f -name '*.DS_Store' -ls -delete
+
+#Purge memory cache 
+sudo purge
+
+#Clear font cache
+sudo atsutil databases -removeUser &&
+atsutil server -shutdown &&
+atsutil server -ping
+
+#Deleting all .pyc file
+sudo find . -path "*/*.pyc" -delete
+
+#Deleting all .pyo files
+sudo find . -path "*/*.pyo" -delete
+
+#Deleting all ‘__pycache__' files
+sudo find . -path "*/__pycache__" -type d -exec rm -r {} ';'
+
+#Empty the Trash on all mounted volumes and the main HDD and  clear Apple’s System Logs to improve shell startup speed
+sudo alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; rm -rfv /private/var/log/asl/*.asl"
+
+#Remove all cached content
+sudo AssetCacheManagerUtil flushCache
+
+#Delete All System Logs in OS X:
+sudo rm -rf /private/var/log/*
+
+#Delete QuickLook Caches
+sudo rm -rf /private/var/folders/
+
+#Remove Emacs
+sudo rm -rf /usr/share/emacs/
+
+#Use xcrun cli to delete unavailable simulators
+xcrun simctl delete unavailable
+
+#Use xcrun cli to delete simulators you don’t develop for example watchOS
+xcrun simctl list devices | grep -E -i "watch" | grep -E -o "([A-Z0-9]+-){4}([A-Z0-9]+)" | xargs xcrun simctl delete
+
+
+$$$ NPM $$$$
+
+#Cleanup npm cache
+npm cache clean --force
+
+npm audit --audit-level=high;
+npm install npm@latest -g --to upgrade;
+npm install --cache /tmp/empty-cache --delete temperatry cache;
+npm prune;
+npm audit;
+npm audit fix --force
+
+
+$$$ RUBY $$$ 
+
+$cleanup gem
+gem cleanup
+
+$$$ PYTHON $$$ 
+
+#cleanup pip cache
+rm -rfv ~/Library/Caches/pip
+
+#Yarn
+yarn cache clean;
+yarn cache clean --force
+
+#Docker
+docker container rm -v;
+docker image prune;
+docker volume prune;
+
+#brew
+brew update && brew upgrade && brew cleanup
+
+#Remove all the merged branches from a single project with this command:
+git branch --merged master | grep -v "\* master" | xargs -n 1 git branch -d
+
+#Removes all node_modules folders older than 4 months:
+find . -name "node_modules" -type d -mtime +120 | xargs rm -rf
+
+#Removes all node_modules folders:
+find . -name "node_modules" -type d | xargs rm -rf
+
+#Clean up CocoaPod caches:
+rm -rf "${HOME}/Library/Caches/CocoaPods"
+
+#Clean up various archives, logs, and derived data folders:
+rm -rf ~/Library/Developer/Xcode/Archives;
+rm -rf ~/Library/Developer/Xcode/DerivedData;
+rm -rf ~~/Library/Developer/Xcode/iOS Device Logs/
+
+#Combines Perl, AppleScript, and various tools to find duplicate entries in the Address Book application
+osascript -e 'tell app "Address Book" to get the name of every person' | perl -pe 's/, /\n/g' | sort | uniq -d
 
 #Update installed apps & clear caches
 brew analytics off;
@@ -155,18 +256,7 @@ xcrun simctl delete unavailable
 #Update conda python environment
 conda update --all
 
-#Cleanup pip cache
-rm -rfv ~/Library/Caches/pip
 
 
-### NPM ###
 
-#Cleanup npm cache
-npm cache clean --force
 
-npm audit --audit-level=high;
-npm install npm@latest -g --to upgrade;
-npm install --cache /tmp/empty-cache --delete temperatry cache;
-npm prune;
-npm audit;
-npm audit fix --force
