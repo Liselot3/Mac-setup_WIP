@@ -1,0 +1,678 @@
+#!/bin/bash
+
+## 💻 LISELOT'S MACOS SETUP 💻 ###
+
+#version 2#
+
+_________
+
+### MUST DO FIRST ###
+
+#Ask for the administrator password upfront
+sudo -v
+
+#Install Xcode
+xcode-select --install
+
+#Install all available software updates
+sudo softwareupdate -ia
+
+#Install Apple Rosetta 2:
+/usr/sbin/softwareupdate --install-rosetta
+
+#Keep-alive: update existing `sudo` time stamp until `.macos` has finished
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+#Allow third-party software
+sudo spctl --master-disable
+
+# Change login shell to zsh
+chsh -s /bin/zsh
+
+#Xcode won't ask for password with every build
+DevToolsSecurity -enable
+____
+
+## SET ENVIRONMENT ## 
+
+#Set terminal prompt
+export PS1=" ~ % "
+
+#Formatting computer name
+computerName=$loggedInUser'Macbook Pro 2020'
+
+#Set computer name
+echo "Setting computer name to $computerName locally..."
+scutil --set ComputerName "Liselot's MacBook Pro 2020" scutil --set HostName "Host-Liselot" scutil --set LocalHostName "Localhost-Liselot"
+
+sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName "Liselot-net"
+
+#User Home Directory
+$ cd ~/
+
+____
+
+## 🍺 HOMEBREW ## 
+
+#Install homebrew
+#This will install Homebrew in the /opt/homebrew/bin/brew directory. When you install apps using Homebrew it installs them to the /opt/homebrew/Cellar directory and creates a symlink in the /opt/homebrew/bin directory.
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+#Install the latest version and set as current user's default shell
+brew install zsh && \
+sudo sh -c 'echo $(brew --prefix)/bin/zsh >> /etc/shells' && \
+chsh -s $(brew --prefix)/bin/zsh
+
+read -p "Password: " sudo_pass
+
+#Make sure the homebrew bin directory is in your $PATH in order to use installed packages:
+export PATH=$HOME/homebrew/bin:$PATH
+
+#Add repo with drivers to cask (needed for Steelseries Engine and Logitech Camera Settings)
+brew tap homebrew/cask-drivers
+
+#Install utilities
+arch -arm64 brew install coreutils #GNU File, Shell, and Text utilities;
+arch -arm64 brew install moreutils
+arch -arm64 brew install findutils;
+arch -arm64 brew install --debug node;
+arch -arm64 brew install wget;
+arch -arm64 brew install z;
+arch -arm64 brew install ag;
+arch -arm64 brew install ack;
+arch -arm64 brew install fd;
+arch -arm64 brew install ffind;
+arch -arm64 brew install fpp;
+arch -arm64 brew install tmux;
+arch -arm64 brew install zsh;
+arch -arm64 brew install grep --with-default-names;
+arch -arm64 brew install less;
+arch -arm64 brew install trash;
+arch -arm64 brew install mysql;
+arch -arm64 brew install rsync;
+arch -arm64 brew install postgresql;
+arch -arm64 brew install ruby-build;
+
+#Install packages
+arch -arm64 brew install mas # Install AppStore CLI installer;
+arch -arm64 brew install mint #Dependency manager that installs and runs Swift command-line tool packages;
+arch -arm64 brew install dmg2img #Utilities for converting macOS DMG images;
+arch -arm64 brew install zsh-completions;
+arch -arm64 brew install --cask dotnet-sdk;
+arch -arm64 brew install go;
+arch -arm64 brew install ghostscript;
+arch -arm64 brew install yarn;
+arch -arm64 brew install
+
+#Unused
+# swiftlint #Linter for swift language
+# carthage #Dependency manager for iOS apps
+# gnupg #OpenPGP for signing and encrypting
+# pinentry-mac #App to use macOS native keychain for PGP passwords
+# pandoc #Markup to Word/Open office converter needed by Typora
+# pandoc-citeproc #Pandoc's citation parser
+
+# list of AppStore apps
+arch -arm64 brew install 497799835 #Xcode (Apple IDE);
+arch -arm64 brew install 975937182 #Fantastical 3 (Calendar app);
+arch -arm64 brew install 462054704 #Microsoft Word (Documents editor);
+arch -arm64 brew install 462058435 #Microsoft Excel (Spreadsheets editor);
+arch -arm64 brew install 462062816 # Microsoft PowerPoint (Presentations editor);
+arch -arm64 brew install 985367838 #Microsoft Outlook;  
+arch -arm64 brew install 784801555 #Microsoft OneNote;  
+arch -arm64 brew install 823766827 #Microsoft OneDrive; 
+arch -arm64 brew install 1330801220 #quicktype (JSON to Code generator);
+arch -arm64 brew install 1388020431 #DevCleaner for Xcode (App for deleting old Xcode files in ~/Library/Developer folder);
+arch -arm64 brew install 1538761576 #Authenticator App; ‎
+arch -arm64 brew install  # 
+arch -arm64 brew install  # 
+arch -arm64 brew install  # 
+arch -arm64 brew install  #                        
+arch -arm64 brew install 
+arch -arm64 brew install 
+arch -arm64 brew install 
+arch -arm64 brew install 
+arch -arm64 brew install 
+arch -arm64 brew install 
+arch -arm64 brew install 
+
+#Install apps
+arch -arm64 brew install google-chrome;
+arch -arm64 brew install vlc;
+arch -arm64 brew install coderunner;
+arch -arm64 brew install Spotify;
+arch -arm64 brew install evernote;
+arch -arm64 brew install emacs --with-cocoa
+arch -arm64 brew install microsoft-teams;
+arch -arm64 brew install markdown;
+arch -arm64 brew install easyfind;
+arch -arm64 brew install mactex;
+arch -arm64 brew install transmission # Torrents client;
+arch -arm64 brew install sourcetree;
+arch -arm64 brew install sublime-text #Cross-platform code editor with it's own high performance rendering engine;
+arch -arm64 brew install macdown #Markdown 2 panes editor;
+arch -arm64 brew install dotnet-sdk #Dotnet language support;
+arch -arm64 brew install cheatsheet;
+arch -arm64 brew install adobe-creative-cloud;
+arch -arm64 brew install cakebrew;
+arch -arm64 brew install zsh-syntax-highlighting;
+arch -arm64 brew install zsh-navigation-tools;
+arch -arm64 brew install zsh-autosuggestions;
+arch -arm64 brew install 
+arch -arm64 brew install 
+
+
+#Unused apps
+# pycharm-ce # Python IDE from JetBrains
+# webstorm # JavaScript IDE from JetBrains
+# intellij-idea-ce # Java IDE from JetBrains
+# insomnia # Open source HTTP requests tool
+# paw # MacOS native HTTP requests tool
+# paragon-ntfs # Support for NTFS file system
+# zoomus # Video conference App
+
+
+#Install more recent versions of some OS X tools:
+arch -arm64 brew install vim --override-system-vi;
+arch -arm64 brew install homebrew/dupes/grep;
+arch -arm64 brew install homebrew/dupes/openssh;
+arch -arm64 brew install homebrew/dupes/screen;
+arch -arm64 brew install homebrew/php/php56 --with-gmp
+
+#Link all applications
+#mkdir $HOME/Applications;
+#brew linkapps
+
+$ Quicklook plugins $
+arch -arm64 brew install qlcolorcode #syntax highlighting in preview;
+arch -arm64 brew install qlstephen #preview plaintext files without extension;
+arch -arm64 brew install qlmarkdown #preview markdown files;
+arch -arm64 brew install quicklook-json #preview json files;
+arch -arm64 brew install epubquicklook #preview epubs, make nice icons;
+arch -arm64 brew install quicklook-cs
+
+#Update
+brew update
+
+#Remove outdated versions from the cellar
+brew cleanup 
+ #Upgrade any already-installed formulae
+brew upgrade
+
+#Create an alias that updates homebrew, upgrades any installed formulas, and then cleans up any files that are no longer necessary:
+alias sysup='brew update && brew upgrade; brew cleanup'
+
+#Update installed apps and clear caches
+brew update;
+brew upgrade;
+brew cask upgrade;
+brew cleanup
+sudo rm -rf ~/Library/Caches/Homebrew
+
+____
+
+## ZSH SHELL ## 
+
+#Install Oh-My-Zsh
+sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+#Open .zshrc file
+Open ~/.zshrc
+
+# Install terminal colors for zsh (light theme)
+# Use this generator to translate BSD colors and Linux colors: https://geoff.greer.fm/lscolors/
+echo -e 'export LSCOLORS="ExFxBxDxCxegedabagacad"' >> ~/.zshrc
+echo -e 'export LS_COLORS="di=1;34:ln=1;35:so=1;31:pi=1;33:ex=1;32:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43"' >> ~/.zshrc
+echo -e "zstyle ':completion:*:default' list-colors \${(s.:.)LS_COLORS}" >> ~/.zshrc
+
+#Replaces default theme with jreese theme (works great with light theme)
+sed -i -e 's/ZSH_THEME="robbyrussell"/ZSH_THEME="jreese"/g' ~/.zshrc
+
+#Uncomment en_US.UTF-8 locale for console, making them undependable from macOS locale settings
+sed -i -e 's/# export LANG=en_US.UTF-8/export LANG=en_US.UTF-8/g' ~/.zshrc
+
+ZSH_DISABLE_COMPFIX=true
+____
+
+## GIT ## 
+
+#Install git
+arch -arm64 brew install git
+
+#git version (output should be /usr/local/bin/git)
+which git
+
+$ Basic git configuration $
+
+#Define your Git user (they will get added to your .gitconfig file)
+git config --global user.name “Liselot3
+git config --global user.email sweetthunder33@gmail.com
+
+#Set up a global .gitignore file, located for instance in your home directory
+cd ~
+curl -O https://raw.githubusercontent.com/nicolashery/mac-dev-setup/master/.gitignore
+git config --global core.excludesfile ~/.git
+
+$ Global Git Config $
+
+git config — global push.default current;
+git config — global core.excludesfile ~/.gitignore;
+git config — global user.name “Liselot3”;
+git config — global user.email <sweetthunder33@gmail.com>;
+git config — global color.branch auto;
+git config — global color.diff auto;
+git config — global color.interactive auto;
+git config — global color.status auto;
+git config — global alias.st status;
+git config — global alias.ci commit;
+git config — global alias.co checkout;
+git config — global alias.br branch;
+git config — global alias.lg “log — graph — pretty=format:’%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue <%an>%Creset’ — abbrev-commit — date=relative”
+
+____
+
+## FONTS ## 
+
+echo "Installing fonts..."
+
+brew tap homebrew/fonts
+
+#Install programming fonts
+arch -arm64 brew install font-fira-mono-for-powerline;
+arch -arm64 brew install font-fira-code
+
+### SourceCodePro + Powerline + Awesome Regular (for powerlevel 9k terminal icons)
+cd ~/Library/Fonts && { curl -O 'https://github.com/Falkor/dotfiles/blob/master/fonts/SourceCodePro+Powerline+Awesome+Regular.ttf?raw=true' ; cd -; }
+
+#Close any open System Preferences panes, to prevent them from overriding
+osascript -e 'tell application "System Preferences" to quit'
+
+#Performs consistency check on registered fonts
+atsutil fonts -verify
+
+# Copy SF Mono font (available only in Xcode and Terminal.app) to the system
+cp -R /System/Applications/Utilities/Terminal.app/Contents/Resources/Fonts/. /Library/Fonts/
+____
+
+## NPM ##
+
+#Install node
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.4/install.sh | zsh;
+nvm install node;
+nvm use node
+
+#Cleanup npm cache
+npm cache clean --force
+
+npm audit --audit-level=high;
+npm install npm@latest -g --to upgrade;
+npm install --cache /tmp/empty-cache --delete temperatry cache;
+npm prune;
+npm audit;
+npm audit fix --force
+
+#Determining which global packages need updating
+npm outdated -g --depth=0
+
+#Updating a single global package
+npm update -g <package_name>
+
+#Updating all globally-installed packages
+npm update -g
+
+#Get the current global location
+npm config get prefix
+
+#List global packages
+npm list --global
+
+#Show just the packages with their version number
+npm list -g --depth=0;
+npm cache clean --force
+
+#purge all node_module folders from your workspace if you have multiple node projects on your system you want to clean up:
+find . -name "node_modules" -type d -exec rm -rf '\{\}' +\
+
+____
+
+## PYTHON ## 
+
+#Install python 
+arch -arm64 brew install python3
+
+#Install with get-pip.py
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+
+#Then run the following command in the folder where you have downloaded get-pip.py
+python3 get-pip.py
+
+#Upgrade
+pip install -U pip
+
+#Outdated
+pip list --outdated
+
+#Version
+pip --version
+pip3 --version
+
+sudo python3 -m ensurepip --default-pip
+
+pip install --upgrade pip;
+pip3 install --upgrade pip
+
+#cache (/Users/liselot/Library/Caches/pip)
+#available actions: dir, info, list, purge, remove
+pip3 cache purge;
+pip cache purge
+
+#update apps
+pip3 list --outdated
+pip install -U [app name]
+
+#upgrade
+pip3 list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1 | xargs -n1 pip3 install -U;
+pip list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1 | xargs -n1 pip install -U
+
+#Install & update pip
+arch -arm64 pip install --upgrade pip;
+arch -arm64 pip install Pygments;
+
+arch -arm64 brew install pyenv;
+arch -arm64 brew install openssl readline sqlite3 xz zlib;
+arch -arm64 brew install pyenv-virtualenv;
+pyenv virtualenvs
+
+#Install pipx
+pip3 install --user pipx;
+pipx install pipenv
+
+#Install argcomplete
+python3 -m pip install argcomplete
+
+#Check version
+python3 --version
+python3 -m pip install --user --upgrade setuptools wheel
+
+#Ensure pip, setuptools, and wheel are up to date
+python3 -m pip install --upgrade pip setuptools
+
+$ Linking $
+
+brew link python
+
+#To force the link and overwrite all conflicting files:
+brew link --overwrite python
+
+#To list all files that would be deleted:
+brew link --overwrite --dry-run python
+
+brew link --overwrite python
+
+#pip3 install -r requirements-dev.txt
+#pip3  install -t lib -r requirements.txt
+
+#python3 -m pip install --user --upgrade pip
+#python3 -m pip install --user virtualenv 
+#python3 -m venv env
+#python3 -m pip install requests
+#python3 -m pip install requests[security]
+#python3 -m pip install -r requirements.txt
+#python3 -m pip completion --zsh >> ~/.zprofile 
+
+____
+
+## RUBY ## 
+
+#Install CocoaPods dependency manager for iOS apps
+sudo gem install cocoapods
+
+#Install CocoaPods Keys plugin
+sudo gem install cocoapods-keys
+
+____
+
+## DEFAULT SETTINGS ## 
+
+#Disabling compatibility check
+sudo nvram boot-args="-no_compat_check"
+
+#Disable the warning before emptying the Trash
+sudo defaults write com.apple.finder WarnOnEmptyTrash -bool false
+
+#Enable Text Selection in Quick Look
+sudo defaults write com.apple.finder QLEnableTextSelection -bool TRUE
+
+#Prevent Apps From Saving to iCloud by Default
+sudo defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool FALSE
+
+#Enable the default "press & hold\'94 behavior (key repeat) (disable with true)
+sudo defaults write -g ApplePressAndHoldEnabled -bool false
+
+#System highlight color for 'Today' in Calendar
+sudo defaults write com.apple.ical CalUIUseSystemHighlightColorForToday -bool TRUE
+
+#Always show the fully expanded Print dialog box
+sudo defaults write -g PMPrintingExpandedStateForPrint -bool TRUE
+
+#Add quit option to finder
+sudo defaults write com.apple.finder QuitMenuItem -bool TRUE
+
+#Set default Finder view style to column
+sudo defaults write com.apple.Finder FXPreferredViewStyle clmv
+
+#Always show users library folder in Finder
+sudo chflags nohidden ~/Library/
+
+#Remove auto hide dock delay
+sudo defaults write com.apple.Dock autohide-delay -float 0 && killall Dock
+
+#Speed up mission control animations
+sudo defaults write com.apple.dock expose-animation-duration -float 0.12 && killall Dock
+
+#Disable menu bar transparency
+sudo defaults write -g AppleEnableMenuBarTransparency -bool false
+
+#Expand save panel by default
+sudo defaults write -g NSNavPanelExpandedStateForSaveMode -bool true
+
+#Disable disk image verification
+defaults write com.apple.frameworks.diskimages skip-verify -bool true;
+defaults write com.apple.frameworks.diskimages skip-verify-locked -bool true;
+defaults write com.apple.frameworks.diskimages skip-verify-remote -bool true
+
+#Automatically open a new Finder window when a volume is mounted
+sudo defaults write com.apple.frameworks.diskimages auto-open-ro-root -bool true;
+sudo defaults write com.apple.frameworks.diskimages auto-open-rw-root -bool true 
+
+#Avoid creating .DS_Store files on network volumes
+sudo defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+
+#Disable Safari thumbnail cache for History & Top Sites
+sudo defaults write com.apple.Safari DebugSnapshotsUpdatePolicy -int 2
+
+#Enable Safari debug menu
+sudo defaults write com.apple.Safari IncludeDebugMenu -bool true
+
+#Disable resume system-wide
+sudo defaults write NSGlobalDomain NSQuitAlwaysKeepsWindows -bool false
+
+#Remove All Unavailable Simulators
+xcrun simctl delete unavailable
+
+#clear all ACLs
+sudo chmod -RN /
+
+# Finder: show all filename extensions
+sudo defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+
+# Finder: show status bar
+sudo defaults write com.apple.finder ShowStatusBar -bool true
+
+# Finder: allow text selection in Quick Look
+sudo defaults write com.apple.finder QLEnableTextSelection -bool true
+
+# Disable the warning when changing a file extension
+sudo defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
+
+# Avoid creating .DS_Store files on network or USB volumes
+sudo defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true;
+sudo defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
+
+#Set zsh as default shell
+chsh -s /bin/zsh
+
+$ Notification Center Service $
+
+#Disable
+launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist && \
+killall -9 NotificationCenter
+
+$ Battery $
+
+#Remaining Battery Percentage
+pmset -g batt | egrep "([0-9]+\%).*" -o --colour=auto | cut -f1 -d';'
+
+#Remaining Battery Time
+pmset -g batt | egrep "([0-9]+\%).*" -o --colour=auto | cut -f3 -d';'
+
+$ Trackpad, mouse, keyboard, Bluetooth accessories, and input $
+
+#Trackpad: enable tap to click for this user and for the login screen
+sudo defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true;
+sudo defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+
+#Disable force click and haptic feedback
+sudo defaults write ~/Library/Preferences/com.apple.AppleMultitouchTrackpad.plist ForceSuppressed -bool true
+
+$ Mac App Store $
+
+#Enable the automatic update check
+sudo defaults write com.apple.SoftwareUpdate AutomaticCheckEnabled -bool true
+
+#Download newly available updates in background
+sudo defaults write com.apple.SoftwareUpdate AutomaticDownload -int 1
+
+#Install System data files & security updates
+sudo defaults write com.apple.SoftwareUpdate CriticalUpdateInstall -int 1
+
+$ Activation of ARD Agent & Helper $ 
+
+#Activate And Restart the ARD Agent and Helper
+sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate -restart -agent -console
+
+#Deactivate and Stop the Remote Management Service
+sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -deactivate -stop
+
+#Remove Apple Remote Desktop Settings
+sudo rm -rf /var/db/RemoteManagement ; \
+sudo defaults delete /Library/Preferences/com.apple.RemoteDesktop.plist ; \
+defaults delete ~/Library/Preferences/com.apple.RemoteDesktop.plist ; \
+sudo rm -r /Library/Application\ Support/Apple/Remote\ Desktop/ ; \
+rm -r ~/Library/Application\ Support/Remote\ Desktop/ ; \
+rm -r ~/Library/Containers/com.apple.RemoteDesktop
+
+$ Google Chrome $
+
+#Disable swipe navigation
+sudo defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool false;
+sudo defaults write com.google.Chrome.canary AppleEnableSwipeNavigateWithScrolls -bool false
+
+#Use the system-native print preview dialog
+sudo defaults write com.google.Chrome DisablePrintPreview -bool true;
+sudo defaults write com.google.Chrome.canary DisablePrintPreview -bool true
+
+#Expand the print dialog by default
+sudo defaults write com.google.Chrome PMPrintingExpandedStateForPrint2 -bool true;
+sudo defaults write com.google.Chrome.canary PMPrintingExpandedStateForPrint2 -bool true
+
+#Auto-open DevTools on every new tab
+#Open Chrome from the Command line and pass the --auto-open-devtools-for-tabs flag.
+/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --auto-open-devtools-for-tabs
+
+$ Contacts $
+
+#Enable debug mode
+defaults write com.apple.addressbook ABShowDebugMenu -bool true
+____
+
+## MAC CLEANUP ##
+
+#Update installed apps & clear caches
+brew analytics off;
+brew outdated;
+brew update;
+brew upgrade;
+brew cask upgrade;
+brew cleanup;
+brew tap "homebrew/bundle";
+rm -rf ~/Library/Caches/Homebrew
+
+#Create a symbolic link to the in ~/bin with
+sudo ln -s ~/Projects/quickpkg/quickpkg ~/bin #Recursively Delete .DS_Store Files;
+sudo find . -type f -name '*.DS_Store' -ls -delete
+
+#Delete caches
+sudo rm -rf ~/Library/Caches/*
+
+#Keep-alive: update existing `sudo` time stamp until `.macos` has finished
+while true; 
+do sudo -n true; sleep 60; kill -0 "$$" || exit; 
+done 2>/dev/null &
+
+#Update all brew related files
+brew update && brew upgrade && brew cleanup
+
+#Clear DNS Cache
+sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder
+
+#Empty the Trash on all mounted volumes and the main HDD
+sudo rm -rfv /Volumes/*/.Trashes/;
+sudo rm -rfv ~/.Trash/
+
+#Clear Font Cache for Current User
+atsutil databases -removeUser && 
+atsutil server -shutdown && 
+atsutil server -ping
+
+#Clear System Log Files
+sudo rm -rfv /private/var/log/asl/;
+sudo rm -rfv /Library/Logs/DiagnosticReports/;
+sudo rm -rfv /Library/Logs/Adobe/;
+rm -rfv ~/Library/Containers/com.apple.mail/Data/Library/Logs/Mail/* &>/dev/null;
+rm -rfv ~/Library/Logs/CoreSimulator/
+
+#Clear Adobe Cache Files
+sudo rm -rfv ~/Library/Application\\ Support/Adobe/Common/Media\\ Cache\\ Files/* &>/dev/null\
+
+#Cleanup XCode Derived Data &  Archives
+rm -rfv ~/Library/Developer/Xcode/DerivedData/* &>/dev/null\
+rm -rfv ~/Library/Developer/Xcode/Archives/* &>/dev/null\
+rm -rfv ~/Library/Developer/Xcode/iOS Device Logs/* &>/dev/null\
+
+#Purge inactive memory
+sudo purge
+
+#Purge all node_module folders from your workspace if you have multiple node projects on your system you want to clean up:
+find . -name "node_modules" -type d -exec rm -rf '\{\}' +
+
+#Clear XCode caches
+xcrun simctl delete unavailable
+
+#Updated all outdated packages installed through the Mac app store
+mas upgrade{\field{\*\fldinst{HYPERLINK "https://mail.google.com/mail/u/0/#inbox"}}{\fldrslt https://mail.google.com/mail/u/0/#inbox}}
+
+#Cleanup pip cache
+rm -rfv ~/Library/Caches/pip
+
+#Delete trash
+rm -rdf ~/.Trash/*
+
+___
+
+## UNUSED ##
+
+#Fix Catalina bug with "Insecure completion-dependent directories detected". Uncomment only when needed
+#compaudit | xargs chmod g-w,o-w
+
+
