@@ -1,0 +1,172 @@
+### MAC CLEANUP ###
+
+$commands to help clean up macbook
+$Beware there may have some repeats
+_______________________________________________________
+
+#Update installed apps & clear caches
+brew analytics off;
+brew outdated;
+brew update;
+brew upgrade;
+brew cask upgrade;
+brew cleanup;
+brew tap "homebrew/bundle";
+rm -rf ~/Library/Caches/Homebrew
+
+#You can create a symbolic link to the in ~/bin with
+ln -s ~/Projects/quickpkg/quickpkg ~/bin 
+
+#Recursively Delete .DS_Store Files
+sudo find . -type f -name '*.DS_Store' -ls -delete
+
+#Delete caches:
+sudo rm -rf ~/Library/Caches/*
+
+#Delete caches
+echo "cleaning ~/Library/Containers/$x/Data/Library/Caches/";
+rm -rf ~/Library/Containers/$x/Data/Library/Caches/*;
+echo "done cleaning ~/Library/Containers/$x/Data/Library/Caches"
+
+#Update all brew related files
+brew update && brew upgrade && brew cleanup
+
+#Clear DNS Cache
+sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder
+
+#Empty the Trash on all mounted volumes and the main HDD
+sudo rm -rfv /Volumes/*/.Trashes/;
+sudo rm -rfv ~/.Trash/
+
+#Clear Font Cache for Current User
+atsutil databases -removeUser && 
+atsutil server -shutdown && 
+atsutil server -ping
+
+#Clear System Log Files
+sudo rm -rfv /private/var/log/asl/;
+sudo rm -rfv /Library/Logs/DiagnosticReports/;
+sudo rm -rfv /Library/Logs/Adobe/;
+sudo rm -rfv ~/Library/Containers/com.apple.mail/Data/Library/Logs/Mail/* 
+sudo rm -rfv ~/Library/Logs/CoreSimulator/
+
+#Clear Adobe Cache Files
+sudo rm -rfv ~/Library/Application\\ Support/Adobe/Common/Media\\ Cache\\ Files/* 
+
+#Cleanup iOS Applications
+rm -rfv ~/Music/iTunes/iTunes\\ Media/Mobile\\ Applications/* 
+
+#Remove iOS Device Backups
+sudo rm -rfv ~/Library/Application\\ Support/MobileSync/Backup/*
+
+#Cleanup XCode Derived Data &  Archives
+sudo rm -rfv ~/Library/Developer/Xcode/DerivedData/*
+sudo rm -rfv ~/Library/Developer/Xcode/Archives/* 
+sudo rm -rfv ~/Library/Developer/Xcode/iOS Device Logs/* 
+
+#Purge inactive memory
+sudo purge
+
+#Purge all node_module folders from your workspace if you have multiple node projects on your system you want to clean up:
+find . -name "node_modules" -type d -exec rm -rf '\{\}' +
+
+#Clear XCode caches
+xcrun simctl delete unavailable
+
+#Updated all outdated packages installed through the Mac app store
+mas upgrade{\field{\*\fldinst{HYPERLINK "https://mail.google.com/mail/u/0/#inbox"}}{\fldrslt https://mail.google.com/mail/u/0/#inbox}}
+
+#Cleanup pip cache
+rm -rfv ~/Library/Caches/pip
+
+#Delete trash
+rm -rdf ~/.Trash/*
+
+_____________
+
+#Ask for the administrator password upfront 
+sudo -v
+
+#Update all brew related files
+brew update && brew upgrade && brew cleanup
+
+#Clear DNS Cache
+sudo dscacheutil -flushcache && 
+sudo killall -HUP mDNSResponder
+
+#Empty the Trash on all mounted volumes and the main HDD\
+sudo rm -rfv /Volumes/*/.Trashes/;
+sudo rm -rfv ~/.Trash/
+
+#Clear Font Cache for Current User
+atsutil databases -removeUser &&
+atsutil server -shutdown && 
+atsutil server -ping
+
+#Recursively Delete .DS_Store Files
+sudo find . -type f -name '*.DS_Store' -ls -delete
+	
+#Update installed apps & clear caches
+brew analytics off;
+brew outdated;
+brew update;
+brew upgrade;
+brew cask upgrade;
+brew cleanup;
+brew tap "homebrew/bundle";
+rm -rf ~/Library/Caches/Homebrew
+
+#Clear System Log Files
+sudo rm -rfv /private/var/log/asl/;
+sudo rm -rfv /Library/Logs/DiagnosticReports/;
+sudo rm -rfv /Library/Logs/Adobe/;
+rm -rfv ~/Library/Containers/com.apple.mail/Data/Library/Logs/Mail/*
+rm -rfv ~/Library/Logs/CoreSimulator/;
+
+#Clear Adobe Cache Files
+sudo rm -rfv ~/Library/Application\\ Support/Adobe/Common/Media\\ Cache\\ Files/*
+
+#Cleanup iOS Applications
+rm -rfv ~/Music/iTunes/iTunes\\ Media/Mobile\\ Applications/* 
+
+#Remove iOS Device Backup
+rm -rfv ~/Library/Application\\ Support/MobileSync/Backup/*
+
+#Cleanup XCode Derived Data and Archives
+rm -rfv ~/Library/Developer/Xcode/DerivedData/* 
+rm -rfv ~/Library/Developer/Xcode/Archives/*
+rm -rfv ~/Library/Developer/Xcode/iOS Device Logs/* 
+
+if type "xcrun" &>/dev/null; then
+	echo 'Cleanup iOS Simulators...'
+	osascript -e 'tell application "com.apple.CoreSimulator.CoreSimulatorService" to quit'
+	osascript -e 'tell application "iOS Simulator" to quit'
+	osascript -e 'tell application "Simulator" to quit'
+	xcrun simctl shutdown all
+	xcrun simctl erase all
+fi
+
+#Purge inactive memory
+sudo purge
+
+#Clear Xcode caches
+xcrun simctl delete unavailable
+
+#Update conda python environment
+conda update --all
+
+#Cleanup pip cache
+rm -rfv ~/Library/Caches/pip
+
+
+### NPM ###
+
+#Cleanup npm cache
+npm cache clean --force
+
+npm audit --audit-level=high;
+npm install npm@latest -g --to upgrade;
+npm install --cache /tmp/empty-cache --delete temperatry cache;
+npm prune;
+npm audit;
+npm audit fix --force
